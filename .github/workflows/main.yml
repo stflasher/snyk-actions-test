@@ -1,7 +1,7 @@
 name: Example workflow for Node using Snyk 
 on: push
 jobs:
-  security:
+  security-check-snyk:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -15,7 +15,8 @@ jobs:
    # - name: Upload result to GitHub Code Scanning
    #  run : ls -la && npm install -g snyk && snyk config set api= ${{ secrets.SNYK_TOKEN }} && snyk test
 
-  njsscan:
+  node-js-code-scan:
+    needs: security-check-snyk
     runs-on: ubuntu-latest
     name: njsscan code scanning
     steps:
