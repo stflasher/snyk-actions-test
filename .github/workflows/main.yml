@@ -13,10 +13,6 @@ jobs:
       with:
         args: --severity-threshold=high	
     - name: Upload result to GitHub Code Scanning
-      run : |
-	 ls -la
-         npm install -g snyk
-         snyk config set api= ${{ secrets.SNYK_TOKEN }}
-         snyk test
+      run : ls -la && npm install -g snyk && snyk config set api= ${{ secrets.SNYK_TOKEN }} && snyk test
     
 
