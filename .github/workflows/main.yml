@@ -11,10 +11,11 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --severity-threshold=high
-      run: snyk test > testres.txt	
+        args: --severity-threshold=high	
     - name: Upload result to GitHub Code Scanning
       run : ls -la
-
+      run : npm install -g snyk
+      run : snyk config set api= ${{ secrets.SNYK_TOKEN }}
+      run : snyk test
     
 
