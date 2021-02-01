@@ -14,5 +14,5 @@ jobs:
       with:
         args: --severity-threshold=high
     - name: Upload result to GitHub Code Scanning
-         run : ls -la
+      run : ls -la
 
