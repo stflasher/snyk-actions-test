@@ -46,5 +46,5 @@ jobs:
           go-version: "^1.13.1"
       - name: run port checker
         run: |
-          apt-get install nmap
+          sudo apt-get install nmap
           nmap www.volue.com
