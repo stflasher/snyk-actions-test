@@ -32,14 +32,6 @@ jobs:
         with:
           sarif_file: results.sarif
 
-  port-checker:
-    needs: node-js-code-scan
-    runs-on: ubuntu-latest
-    name: port checker
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
       - name: setup Golang
       - uses: actions/setup-go@v2
         with:
