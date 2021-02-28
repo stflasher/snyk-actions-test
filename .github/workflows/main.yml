@@ -33,7 +33,7 @@ jobs:
           sarif_file: results.sarif
 
   port-checker:
-    needs: node-js-code-scan
+    # needs: node-js-code-scan
     runs-on: ubuntu-latest
     name: port checker
     steps:
@@ -48,3 +48,7 @@ jobs:
         run: |
           sudo apt-get install nmap
           nmap www.volue.com
+      - name: SSL Quality Checker
+        run: |
+          git clone https://github.com/ssllabs/ssllabs-scan.git
+          go run ssllabs-scan-v3.go www.volue.com
