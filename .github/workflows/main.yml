@@ -1,47 +1,47 @@
-name: Example workflow for Node using Snyk 
+name: Example workflow for Node using Snyk
 on: push
 jobs:
   security-check-snyk:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master  
-      continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        args: --severity-threshold=high	
-   # - name: Upload result to GitHub Code Scanning
-   #  run : ls -la && npm install -g snyk && snyk config set api= ${{ secrets.SNYK_TOKEN }} && snyk test
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+    # - name: Upload result to GitHub Code Scanning
+    #  run : ls -la && npm install -g snyk && snyk config set api= ${{ secrets.SNYK_TOKEN }} && snyk test
 
   node-js-code-scan:
     needs: security-check-snyk
     runs-on: ubuntu-latest
     name: njsscan code scanning
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v2
-    - name: nodejsscan scan
-      id: njsscan
-      uses: ajinabraham/njsscan-action@master
-      with:
-        args: '. --sarif --output results.sarif || true'
-    - name: Upload njsscan report
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: results.sarif
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: nodejsscan scan
+        id: njsscan
+        uses: ajinabraham/njsscan-action@master
+        with:
+          args: ". --sarif --output results.sarif || true"
+      - name: Upload njsscan report
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: results.sarif
 
-  port-checker : 
-    needs : node-js-code-scan
+  port-checker:
+    needs: node-js-code-scan
     runs-on: ubuntu-latest
-    name : port checker
-    steps : 
-    - name: Checkout the code
-      uses: actions/checkout@v2
-    - name : setup Golang
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '^1.13.1'
-    - name : run port checker
-      - run : apt-get install nmap
+    name: port checker
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: setup Golang
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "^1.13.1"
+      - name: run port checker
+        run: apt-get install nmap
