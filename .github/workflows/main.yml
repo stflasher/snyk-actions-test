@@ -51,4 +51,4 @@ jobs:
       - name: SSL Quality Checker
         run: |
           git clone https://github.com/ssllabs/ssllabs-scan.git
-          go run ssllabs-scan-v3.go www.volue.com
+          go run ./ssllabs-scan/ssllabs-scan-v3.go www.volue.com
