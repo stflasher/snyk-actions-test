@@ -33,9 +33,9 @@ jobs:
           sarif_file: results.sarif
 
   port-checker:
-    # needs: node-js-code-scan
+    needs: node-js-code-scan
     runs-on: ubuntu-latest
-    name: port checker
+    name: port Scanner + SSL QL Check
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: "^1.13.1"
-      - name: run port checker
+      - name: run port Scanner
         run: |
           sudo apt-get install nmap
           nmap www.volue.com
@@ -55,5 +55,5 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
+          name: SSL QL JSON
           path: ./logs.txt
