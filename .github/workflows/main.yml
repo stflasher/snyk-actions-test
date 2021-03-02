@@ -47,11 +47,11 @@ jobs:
       - name: run port Scanner
         run: |
           sudo apt-get install nmap
-          nmap www.volue.com
+          nmap www.volue.com > logs.txt
       - name: SSL Quality Checker
         run: |
           git clone https://github.com/ssllabs/ssllabs-scan.git
-          go run ./ssllabs-scan/ssllabs-scan-v3.go www.volue.com > logs.txt
+          go run ./ssllabs-scan/ssllabs-scan-v3.go www.volue.com >> logs.txt
       - name: upload artifact
         uses: actions/upload-artifact@v2
         with:
